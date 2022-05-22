@@ -60,28 +60,34 @@ A PLT has two important parameters: tree height $H$ and cluster size $M$. If the
 
 \subsection{Learning LightAttention and Generative Cooperative Networks}\label{subsec:GCN}
 % how GCN is used in the model
-After we construct a PLT, we need to train a deep model at each level of the PLT. For a deep PLT, the nodes near the bottom layer is very difficult since the labels.
+After we construct a PLT, we need to train a deep model at each level of the PLT. For a deep PLT, the nodes near the bottom layer is very difficult since the labels. Instead of training the model for all nodes together, we follow the strategy in AttentionXML, i.e., a level-wise and top-down manner for each level of nodes. We define LightAttention$_d$ as the training procedure of training the $d$-level candidate nodes $g(x)$ for given sample $x$. The candidate nodes is selected by first sortting the $(d-1)$-level nodes by $z_n$ (from positive to negative) and the scores of each nodes obtained in LightAttention$_{d-1}$. Then, the children nodes of the top $k$ nodes at the $(d-1)$-level is the training candidate $g(x)$. LightAttention$_{1}$ can be directly computed for the root nodes. 
+
+During the original AttentionXML, the candidate nodes $g(x)$ obtained by the top $k$ function may consist of both positive and negative nodes. The negative nodes obtained here are all static negative label samples and sometimes, there may be no negative label samples at all. The trained model would overfit due to the lack of negative samples. The convergence of the model with static negative samples would also be difficult due to the high similarity between the positive and negative labels in the original AttentionXML. To address this problem in AttentionXML, we adopt the strategy presented in \cite{you2019attentionxml} and deploy Generative Cooperative Networks (GCN) to generate negative label samples dynamically so that the training procedure can distinguish more negative samples from positive samples, reducing the overfitting issue in AttentionXML.
+
+Specifically, the GCN for LightAttention consists of the two components: label generator, discriminator. These two components work as a cooperative networks. The label generator first generates negative labels and delivers the the negative samples into the discriminator to learn the difference between negative and positive label samples. Here, the discriminator can achieve better label representation with the help of large dynamic negative samples.
+
 \begin{algorithm}[thb]
-    \caption{Generative cooperation networks for LightAttention\label{alg:gcn}}
+    \caption{GCN for LightAttention\label{alg:gcn}}
     \begin{algorithmic}[1]
-        \REQUIRE{Labels of training texts \(\{X,Y\}=\{(x_i,y_i)\}_{i=1}^{N}\), training text $\hat{X}$}
-        \ENSURE{A shallow and wide PLT \(T\)}
-        \STATE{Initialize parent nodes of leaves $S_0$}
-		\FOR{$l \in [1,H]$}
-		\IF{$l < H$}
-		\STATE{$S_l \leftarrow$ \{$c$-th ancestor node $n$ of nodes in $S_{l-1}$\}}
-		\ELSE{}
-		\STATE{$S_l \leftarrow$ \{the root of $T_0$\}}
-		\ENDIF{}
-		\STATE{$T_l \leftarrow T_{l-1}$}
-		\FOR{nodes $n\in S_l$}
-		\FOR{nodes $n^{\prime}\in S_{l-1}$ and node $n$ is the ancestor of $n^{\prime}$ in T}
-		\STATE{$Pa(n^{\prime})\leftarrow n$}
+        \REQUIRE{Labels of training texts \(\{X,Y\}=\{(x_i,y_i)\}_{i=1}^{N}\), semantic features of the training text $\hat{X}$}
+        \ENSURE{Label embedding $M$}
+        \STATE{Label clusters $C$ using $\hat{X}, Y$}
+		\STATE{Discriminator $D$ initialization over cluster $C$}
+		\STATE{Label embedding $E$, generator $G$ initialization over cluster $C$}
+		\STATE{Get $m$ samples from {$X,Y$}: {$X_{batch},Y_{batch}$}}
+		\STATE{Get text embedding $\hat{h}$ from BiLSTM}
+		\FOR{$l \in [1,m]$}
+			\STATE{Generate label clusters $S_{generated}$ using $G(\hat{h_l})$}
+			\STATE{Select negative labels $S_{neg}$ using $S_{generated},C$}
+			\STATE{Delete positive labels from $S_{neg}$}
 		\ENDFOR{}
-		\ENDFOR{}
+		\STATE{Generate positive labels $S_{pos}$ using $Y_{batch}$}
+		\FOR{$l \in [1,m]$}
+			\STATE{Generate label embedding $M$ using $S_{pos},S_{neg}$}
+			% \STATE{Compute label scores using $D(\hat{h_l},M)$}
 		\ENDFOR{}
         \STATE{}
-		\Return{\(T_H\)}
+		\Return{\(M\)}
     \end{algorithmic}
 \end{algorithm}
 
@@ -90,7 +96,7 @@ As shown in \autoref{fig:structure},the deep model of LightAttention can be brie
 
 \subsubsection{Text representation layer} The input text of our model is raw text with length $\hat{T}$. The famous 300-dimensional GloVe \cite{pennington2014glove} word embedding representation is used in our model.
 
-\subsubsection{BiLSTM layer} BiLSTM, abbreviation of Bidirectional long short-term memory, is one of the recursive neural networks (RNN). The overall structure of BiLSTM is shown in \autoref{fig:BiLSTM}. It is equipped with two LSTM layers: one forward LSTM and one backward LSTM. Each LSTM is used to capture either forward or backward context information in a raw text, thus providing much more adequate context information for later usage. The use of BiLSTM is the major reason that we can accept raw text as input in our model. The output of the BiLSTM in our model is the combination of both forward and backward outputs.
+\subsubsection{BiLSTM layer} BiLSTM, abbreviation of Bidirectional long short-term memory, is one of the recursive neural networks (RNN). The overall structure of BiLSTM is shown in \autoref{fig:BiLSTM}. It is equipped with two LSTM layers: one forward LSTM and one backward LSTM. Each LSTM is used to capture either forward or backward context information in a raw text, thus providing much more adequate context information for later usage. The use of BiLSTM is the major reason that we can accept raw text as input in our model. The output $\hat{h_t}$ ($t$ is the time step) of the BiLSTM in our model is the combination of both forward and backward outputs.
 
 \begin{figure}[htb]
 	\centering
@@ -100,7 +106,18 @@ As shown in \autoref{fig:structure},the deep model of LightAttention can be brie
 \end{figure}
 
 
-\subsubsection{Generative cooperative networks} 
+% \subsubsection{Generative cooperative networks} 
 
-\subsubsection{Multi-label attention} 
+\subsubsection{Multi-label attention}
+Attention mechanism \cite{niu2021review} is to permit the decoder to utilize the most relevant parts of the input sequence in a flexible manner, by a weighted combination of all of the encoded input vectors, with the most relevant vectors being attributed the highest weights. In XMTC, the most relevant context that each label captures would be totally different. We adopts the multi-label attention shown in AttentionXML, which detect the intensive parts of text for multiple labels by computing:
+\begin{equation}
+	\hat{\mathbf{m}}_{j}=\sum_{i=1}^{\hat{T}} \alpha_{i j} \hat{\mathbf{h}}_{i}, \quad \alpha_{i j}=\frac{e^{\hat{\hat{h}_{i}} \hat{\mathbf{w}}_{j}}}{\sum_{t=1}^{\hat{T}} e^{\hat{\mathbf{h}}_{t} \hat{\mathbf{w}}_{j}}}
+	\label{equ:mlattention}
+\end{equation}
+\noindent where $\hat{m_j}\in R^{2\hat{N}}$ is the output of multi-label attention, $\alpha_{ij}$ is the normalized coefficient of $\hat{h_i}$ and $\hat{w_j}\in R^{2\hat{N}}$ is the attention parameters.
+
+\subsubsection{Fully connected layer and output layer}
+LightAttention is equipped with 3 or 4 layers of fully connected layers and an output layer. 
+
+
 
