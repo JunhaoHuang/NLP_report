@@ -126,4 +126,9 @@ W.-C. Chang, H.-F. Yu, K.~Zhong, Y.~Yang, and I.~Dhillon, ``X-bert: extreme
   representations from transformers,'' \emph{arXiv preprint arXiv:1905.02331},
   2019.
 
+\bibitem{pennington2014glove}
+J.~Pennington, R.~Socher, and C.~D. Manning, ``Glove: Global vectors for word
+  representation,'' in \emph{Proceedings of the 2014 conference on empirical
+  methods in natural language processing (EMNLP)}, 2014, pp. 1532--1543.
+
 \end{thebibliography}

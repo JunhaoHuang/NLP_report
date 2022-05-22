@@ -230,6 +230,9 @@ INPUT contents/section3.tex
 INPUT contents/section3.tex
 INPUT ./figures/structure.png
 INPUT ./figures/tree.png
+INPUT c:/texlive/2014/texmf-dist/tex/latex/psnfss/omsptm.fd
+INPUT c:/texlive/2014/texmf-dist/tex/latex/psnfss/omsptm.fd
+INPUT ./figures/BiLSTM.png
 INPUT contents/section4.tex
 INPUT contents/section4.tex
 INPUT contents/section5.tex

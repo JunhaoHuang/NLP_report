@@ -1,18 +1,18 @@
 # Fdb version 3
-["bibtex NLP_report"] 1653077852 "NLP_report.aux" "NLP_report.bbl" "NLP_report" 1653077864
-  "NLP_report.aux" 1653077862 3996 0b05817b8cb73b8ad4257a7134db8600 ""
+["bibtex NLP_report"] 1653141730 "NLP_report.aux" "NLP_report.bbl" "NLP_report" 1653144249
+  "NLP_report.aux" 1653144243 6186 a4ddfc0f65e795c971a832af49e3d0c1 ""
   "NLP_report.bcf" 0 -1 0 ""
   "c:/texlive/2014/texmf-dist/bibtex/bst/ieeetran/IEEEtran.bst" 1642773822 59506 016987d9be15acf51cdd7252d40ecec2 ""
-  "ref.bib" 1653077297 7245 f88cb26a17ded89f0ca2d9009c94b92f ""
+  "ref.bib" 1653139652 7602 738a073819f6b138fc9da212882be429 ""
   (generated)
-  "NLP_report.bbl"
   "NLP_report.blg"
-["pdflatex"] 1653077860 "NLP_report.tex" "NLP_report.pdf" "NLP_report" 1653077864
+  "NLP_report.bbl"
+["pdflatex"] 1653144240 "NLP_report.tex" "NLP_report.pdf" "NLP_report" 1653144249
   "IEEEtran.cls" 1653059589 281957 5b2e4fa15b0f7eabb840ebf67df4c0f7 ""
-  "NLP_report.aux" 1653077862 3996 0b05817b8cb73b8ad4257a7134db8600 ""
-  "NLP_report.bbl" 1653077853 5716 b2016c08ec17be37c0bda2372bbbec68 "bibtex NLP_report"
-  "NLP_report.out" 1653077862 353 5a6fa68a491bb18ab32bccf4f2afa10a ""
-  "NLP_report.tex" 1653073405 1860 1d4130ca65f01cdd62b5a03ab00ee7de ""
+  "NLP_report.aux" 1653144243 6186 a4ddfc0f65e795c971a832af49e3d0c1 ""
+  "NLP_report.bbl" 1653141730 5975 734753c28b1c4940b46fcad8d34169fc "bibtex NLP_report"
+  "NLP_report.out" 1653144243 1019 91acfa9c72aa2e5ed9907395d568144b ""
+  "NLP_report.tex" 1653123833 1964 7e061ccdde59b15333ac364a48ad0f29 ""
   "c:/texlive/2014/texmf-dist/fonts/map/fontname/texfonts.map" 1642774185 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "c:/texlive/2014/texmf-dist/fonts/tfm/adobe/times/ptmb7t.tfm" 1642774802 2172 fd0c924230362ff848a33632ed45dc23 ""
   "c:/texlive/2014/texmf-dist/fonts/tfm/adobe/times/ptmbi7t.tfm" 1642774802 2228 e564491c42a4540b5ebb710a75ff306c ""
@@ -94,6 +94,7 @@
   "c:/texlive/2014/texmf-dist/tex/latex/oberdiek/auxhook.sty" 1642774490 3834 707ef09f31d7d2ea47ba89974755dfe0 ""
   "c:/texlive/2014/texmf-dist/tex/latex/oberdiek/kvoptions.sty" 1642774490 22417 c74ff4af6a1aa2b65d1924020edbbe11 ""
   "c:/texlive/2014/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty" 1642774490 9581 1158efc648bc09d5064db5703c882159 ""
+  "c:/texlive/2014/texmf-dist/tex/latex/psnfss/omsptm.fd" 1642774576 576 95c2c0baea9c719a4be29a3d4122498b ""
   "c:/texlive/2014/texmf-dist/tex/latex/psnfss/ot1ptm.fd" 1642774576 961 15056f4a61917ceed3a44e4ac11fcc52 ""
   "c:/texlive/2014/texmf-dist/tex/latex/relsize/relsize.sty" 1642774643 15542 c4cc3164fe24f2f2fbb06eb71b1da4c4 ""
   "c:/texlive/2014/texmf-dist/tex/latex/siunitx/config/siunitx-abbreviations.cfg" 1642774691 4669 c9c40878b7ff419f80043702bb55c751 ""
@@ -110,13 +111,14 @@
   "contents/abstract.tex" 1653077458 1761 0934faa97cb0d3784e37217fe13c68a3 ""
   "contents/section1.tex" 1653077506 5308 e44d57d3b198d84031eae85853bf3d5d ""
   "contents/section2.tex" 1653077715 5320 84a318a2113727276f8a595c7359e340 ""
-  "contents/section3.tex" 1653077858 617 25b5ad6c1a2c053203a4f317392b15ed ""
+  "contents/section3.tex" 1653144231 7570 2f420f70f6a242d5942ca5a80313db94 ""
   "contents/section4.tex" 1653059589 201 72393457c26a1a3917a5ed7ab2df42a4 ""
   "contents/section5.tex" 1653059589 206 fcdb6b26ce91b9379b1bfd581019355f ""
+  "figures/BiLSTM.png" 1653140187 249250 4f7c07694287d36fc6de163fa3f5fe25 ""
   "figures/structure.png" 1653075586 100130 864c650d2220c5a815ba8e66e7e4d96c ""
   "figures/tree.png" 1653069995 28979 decc86ed490c1686feb95c39a8d80024 ""
   (generated)
-  "NLP_report.out"
   "NLP_report.aux"
+  "NLP_report.out"
   "NLP_report.log"
   "NLP_report.pdf"

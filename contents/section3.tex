@@ -1,20 +1,106 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{LightAttention for XMTC} \label{sec:method}
+\section{Methodology} \label{sec:method}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Overview}\label{subsec:overview}
-The overall structure of .
 
-\begin{figure*}[tb]
+\begin{figure*}[htb]
 	\centering
 	\includegraphics[width=0.6\textwidth]{structure.png}
 	\caption{The overall structure of LightAttention}
 	\label{fig:structure}
 \end{figure*}
 
-\begin{figure*}[tb]
+\begin{figure*}[htb]
 	\centering
 	\includegraphics[width=0.6\textwidth]{tree.png}
-	\caption{Shallow and wide tree-based model for XMTC labels}
+	\caption{Shallow and wide probabilistic label tree for label clustering}
 	\label{fig:tree_struct}
 \end{figure*}
+
+\subsection{Problem Formulation and Overview}\label{subsec:overview}
+
+
+The XMTC task is to find multiple relevant labels for each given raw text. For a training set $\{x_i,y_i\}_{i=1}^{N}$, where $x_i$ is a raw text, $y_i\in \{0,1\}^L$ is the relevant label of $x_i$ and $y_i$ is a multi-hot $L$-dimensional vectors. The goal of XMTC is to train a model that can better simulate the function $f(x_i)\in R^L$, such that $f$ output a high score for the $l$-th label $y_{il}$ if $y_{il}$ is relevant to the text $x_i$. However, one significant problem in XMTC is that $L$ can be up to millions, which makes it impossible to directly train a model on $L$-dimensional vectors due to the high workload. Therefore, in order to perform multi-label classification over tens of thousands or millions of label set, we first need to construct a probabilistic label tree (PLT) to divide massive number of labels into smaller label clusters, thus accelerating the process of label classification. After we build a PLT for label clustering, we then train an attention-aware deep learning model LightAttention by combining the BiLSTM, multi-label attention layer and generative cooperative networks for negative label sampling. The overall structure of the model is shown in \autoref{fig:structure}.
+
+\subsection{Building a PLT for label clustering}
+For the PLT construction, we follow the method shown in AttentionXML \cite{you2019attentionxml}, which constructs a shallow and wide PLT from the original deep PLT presented in Parabel \cite{prabhu2018parabel}. Their PLT construction algorithm first utilizes the KMeans (K=2) algorithm to generate a hierarchical deep PLT. After that, they presents an algorithm to split down the layer of the deep PLT due to the reason that a deep PLT would result in slower performance. 
+
+The so-called PLT is to construct a tree with $L$ leaves. Here, each leaf represent a unique label. Suppose that there exists a text $x$, for this given text, we assign each node in the PLT a value $z_n\in \{0,1\}$. $z_n=0$ means that the children node of $n$ doesn't have any relations with the given text $x$. Otherwise, $z_n=0$ indicates that there exists at least one children node of $n$ is relevant to $x$. An example of the shallow and wide PLT can be found in \autoref{fig:tree_struct}, during which the nodes in purple represent $z_n=1$ and the nodes in green indicate $z_n=0$. PLT evaluates the conditional probability that each node $n$'s relevance with $x$ by computing $P\left(z_{n} \mid z_{P a(n)}=1, x\right)$, where $Pa(n)$ is the parent node of $n$. Then, the probability that how each node $n$ is relevant to $x$ can be simply computed with \autoref{equ:probability_plt}.
+
+\begin{equation}
+	P\left(z_{n}=1 \mid x\right)=\prod_{i \in P a t h(n)} P\left(z_{i}=1 \mid z_{P a(i)}=1, x\right)
+	\label{equ:probability_plt}
+\end{equation}
+\noindent The $Path(n)$ refers to the nodes appeared between node $n$ and root.
+
+A PLT has two important parameters: tree height $H$ and cluster size $M$. If these two parameters are too big, then the overall performance of the PLT would be very slow. Therefore, we follow the method in AttentionXML and build a shallow and wide PLT $T_H$, reducing both the tree height $H$ and wide $M$. The overall procedure of this algorithm is shown in \autoref{alg:plt_construction}. This algorithm takes $T_0$, which is built with the Parabel method \cite{prabhu2018parabel}, as input, and it performs the compression function $H$ times over the parents of leaves $S_0$. This algorithm first select $c$-th ancestor nodes as $S_l$. Then, remove the nodes between $S_{l-1}$ and $S_l$ to reduce the overall number of nodes. Finally, reset the tree based on the new nodes. After these steps, a shallow and wide tree $T_H$ with smaller height $H$ and smaller wide $M$ can be obtained.
+ 
+\begin{algorithm}[thb]
+    \caption{The shallow and wide PLT construction\label{alg:plt_construction}}
+    \begin{algorithmic}[1]
+        \REQUIRE{Labels of training texts \(\{y_i\}_{i=1}^{N}\); Initial PLT $T_0$; \(K=2^c,H\)}
+        \ENSURE{A shallow and wide PLT \(T\)}
+        \STATE{Initialize parent nodes of leaves $S_0$}
+		\FOR{$l \in [1,H]$}
+		\IF{$l < H$}
+		\STATE{$S_l \leftarrow$ \{$c$-th ancestor node $n$ of nodes in $S_{l-1}$\}}
+		\ELSE{}
+		\STATE{$S_l \leftarrow$ \{the root of $T_0$\}}
+		\ENDIF{}
+		\STATE{$T_l \leftarrow T_{l-1}$}
+		\FOR{nodes $n\in S_l$}
+		\FOR{nodes $n^{\prime}\in S_{l-1}$ and node $n$ is the ancestor of $n^{\prime}$ in T}
+		\STATE{$Pa(n^{\prime})\leftarrow n$}
+		\ENDFOR{}
+		\ENDFOR{}
+		\ENDFOR{}
+        \STATE{}
+		\Return{\(T_H\)}
+    \end{algorithmic}
+\end{algorithm}
+
+\subsection{Learning LightAttention and Generative Cooperative Networks}\label{subsec:GCN}
+% how GCN is used in the model
+After we construct a PLT, we need to train a deep model at each level of the PLT. For a deep PLT, the nodes near the bottom layer is very difficult since the labels 
+\begin{algorithm}[thb]
+    \caption{Generative cooperation networks for LightAttention\label{alg:gcn}}
+    \begin{algorithmic}[1]
+        \REQUIRE{Labels of training texts \(\{X,Y\}=\{(x_i,y_i)\}_{i=1}^{N}\), training text $\hat{X}$}
+        \ENSURE{A shallow and wide PLT \(T\)}
+        \STATE{Initialize parent nodes of leaves $S_0$}
+		\FOR{$l \in [1,H]$}
+		\IF{$l < H$}
+		\STATE{$S_l \leftarrow$ \{$c$-th ancestor node $n$ of nodes in $S_{l-1}$\}}
+		\ELSE{}
+		\STATE{$S_l \leftarrow$ \{the root of $T_0$\}}
+		\ENDIF{}
+		\STATE{$T_l \leftarrow T_{l-1}$}
+		\FOR{nodes $n\in S_l$}
+		\FOR{nodes $n^{\prime}\in S_{l-1}$ and node $n$ is the ancestor of $n^{\prime}$ in T}
+		\STATE{$Pa(n^{\prime})\leftarrow n$}
+		\ENDFOR{}
+		\ENDFOR{}
+		\ENDFOR{}
+        \STATE{}
+		\Return{\(T_H\)}
+    \end{algorithmic}
+\end{algorithm}
+
+\subsection{Attention-Aware deep model}\label{subsec:attention_deep_model}
+As shown in \autoref{fig:structure},the deep model of LightAttention can be briefly divided into fix layers: text representation layer, BiLSTM layer, generative cooperative networks, multi-label attention layer, fully connected layer and output layer.
+
+\subsubsection{Text representation layer} The input text of our model is raw text with length $\hat{T}$. The famous 300-dimensional GloVe \cite{pennington2014glove} word embedding representation is used in our model.
+
+\subsubsection{BiLSTM layer} BiLSTM, abbreviation of Bidirectional long short-term memory, is one of the recursive neural networks (RNN). The overall structure of BiLSTM is shown in \autoref{fig:BiLSTM}. It is equipped with two LSTM layers: one forward LSTM and one backward LSTM. Each LSTM is used to capture either forward or backward context information in a raw text, thus providing much more adequate context information for later usage. The use of BiLSTM is the major reason that we can accept raw text as input in our model. The output of the BiLSTM in our model is the combination of both forward and backward outputs.
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width=0.4\textwidth]{BiLSTM.png}
+	\caption{Structure of BiLSTM}
+	\label{fig:BiLSTM}
+\end{figure}
+
+
+\subsubsection{Generative cooperative networks} 
+
+\subsubsection{Multi-label attention} 
 
