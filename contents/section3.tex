@@ -60,11 +60,23 @@ A PLT has two important parameters: tree height $H$ and cluster size $M$. If the
 
 \subsection{Learning LightAttention and Generative Cooperative Networks}\label{subsec:GCN}
 % how GCN is used in the model
-After we construct a PLT, we need to train a deep model at each level of the PLT. For a deep PLT, the nodes near the bottom layer is very difficult since the labels. Instead of training the model for all nodes together, we follow the strategy in AttentionXML, i.e., a level-wise and top-down manner for each level of nodes. We define LightAttention$_d$ as the training procedure of training the $d$-level candidate nodes $g(x)$ for given sample $x$. The candidate nodes is selected by first sortting the $(d-1)$-level nodes by $z_n$ (from positive to negative) and the scores of each nodes obtained in LightAttention$_{d-1}$. Then, the children nodes of the top $k$ nodes at the $(d-1)$-level is the training candidate $g(x)$. LightAttention$_{1}$ can be directly computed for the root nodes. 
+After we construct a PLT, we need to train a deep model among the PLT. For a deep PLT, the nodes near the bottom layer is very difficult since the labels. Instead of training the model for all nodes together, AttentionXML presents a level-wise and top-down manner for each level of nodes. They define AttentionXML$_d$ as the training procedure of training the $d$-level candidate nodes $g(x)$ for given sample $x$. The candidate nodes is selected by first sortting the $(d-1)$-level nodes by $z_n$ (from positive to negative) and the scores of each nodes obtained in AttentionXML$_{d-1}$. Then, the children nodes of the top $k$ nodes at the $(d-1)$-level is the training candidate $g(x)$. AttentionXML$_{1}$ can be directly computed for the root nodes. 
 
 During the original AttentionXML, the candidate nodes $g(x)$ obtained by the top $k$ function may consist of both positive and negative nodes. The negative nodes obtained here are all static negative label samples and sometimes, there may be no negative label samples at all. The trained model would overfit due to the lack of negative samples. The convergence of the model with static negative samples would also be difficult due to the high similarity between the positive and negative labels in the original AttentionXML. To address this problem in AttentionXML, we adopt the strategy presented in \cite{you2019attentionxml} and deploy Generative Cooperative Networks (GCN) to generate negative label samples dynamically so that the training procedure can distinguish more negative samples from positive samples, reducing the overfitting issue in AttentionXML.
 
 Specifically, the GCN for LightAttention consists of the two components: label generator, discriminator. These two components work as a cooperative networks. The label generator first generates negative labels and delivers the the negative samples into the discriminator to learn the difference between negative and positive label samples. Here, the discriminator can achieve better label representation with the help of large dynamic negative samples.
+
+The generator is a fully connected layer $G(e)=\sigma\left(W_{g} e+b_{g}\right)$ that output a $K$-dimensional vectors representing the scores of all $K$ label clusters. Top $b$ label clusters with highest scores are choosen at the generation seed of labels. Then, all these labels together with positive labels are added as the training label sets so that the deep model can be trained to recognize the postive and negative labels. The generator loss is computed as \autoref{equ:generator_loss}, during which $y_g\in {0,1}^K$ represents the multi-hot label representation of label cluster for $x$.
+\begin{equation}
+	\begin{aligned}
+	\mathcal{L}_{g}\left(G(e), y_{g}\right)=& \sum_{i=0}^{K}\left(1-y_{g}^{i}\right)\left(-\log \left(1-G(e)^{i}\right)\right)+\\
+	& y_{g}^{i}\left(-\log \left(G(e)^{i}\right)\right)
+	\end{aligned}
+	\label{equ:generator_loss}
+\end{equation}
+
+Instead of training each level of nodes separately as AttentionXML, we treat the whole label clusters as the labels we sample. The generator needs to regenerate negative labels for the same training texts, so that the discriminator can better distinguish positive and negative labels. The label   
+
 
 \begin{algorithm}[thb]
     \caption{GCN for LightAttention\label{alg:gcn}}
@@ -111,7 +123,7 @@ As shown in \autoref{fig:structure},the deep model of LightAttention can be brie
 \subsubsection{Multi-label attention}
 Attention mechanism \cite{niu2021review} is to permit the decoder to utilize the most relevant parts of the input sequence in a flexible manner, by a weighted combination of all of the encoded input vectors, with the most relevant vectors being attributed the highest weights. In XMTC, the most relevant context that each label captures would be totally different. We adopts the multi-label attention shown in AttentionXML, which detect the intensive parts of text for multiple labels by computing:
 \begin{equation}
-	\hat{\mathbf{m}}_{j}=\sum_{i=1}^{\hat{T}} \alpha_{i j} \hat{\mathbf{h}}_{i}, \quad \alpha_{i j}=\frac{e^{\hat{\hat{h}_{i}} \hat{\mathbf{w}}_{j}}}{\sum_{t=1}^{\hat{T}} e^{\hat{\mathbf{h}}_{t} \hat{\mathbf{w}}_{j}}}
+	\hat{\mathbf{m}}_{j}=\sum_{i=1}^{\hat{T}} \alpha_{i j} \hat{\mathbf{h}}_{i}, \quad \alpha_{i j}=\frac{e^{\hat{\mathbf{h}}_{i} \hat{\mathbf{w}}_{j}}}{\sum_{t=1}^{\hat{T}} e^{\hat{\mathbf{h}}_{t} \hat{\mathbf{w}}_{j}}}
 	\label{equ:mlattention}
 \end{equation}
 \noindent where $\hat{m_j}\in R^{2\hat{N}}$ is the output of multi-label attention, $\alpha_{ij}$ is the normalized coefficient of $\hat{h_i}$ and $\hat{w_j}\in R^{2\hat{N}}$ is the attention parameters.

@@ -135,4 +135,27 @@ J.~Pennington, R.~Socher, and C.~D. Manning, ``Glove: Global vectors for word
 Z.~Niu, G.~Zhong, and H.~Yu, ``A review on the attention mechanism of deep
   learning,'' \emph{Neurocomputing}, vol. 452, pp. 48--62, 2021.
 
+\bibitem{Amazon-670}
+\BIBentryALTinterwordspacing
+K.~Bhatia, K.~Dahiya, H.~Jain, P.~Kar, A.~Mittal, Y.~Prabhu, and M.~Varma,
+  ``The extreme classification repository: Multi-label datasets and code,''
+  2016. [Online]. Available:
+  \url{http://manikvarma.org/downloads/XC/XMLRepository.html}
+\BIBentrySTDinterwordspacing
+
+\bibitem{chalkidis-etal-2019-large}
+\BIBentryALTinterwordspacing
+I.~Chalkidis, M.~Fergadiotis, P.~Malakasiotis, and I.~Androutsopoulos,
+  ``Large-scale multi-label text classification on {EU} legislation,'' in
+  \emph{Proceedings of the 57th Annual Meeting of the Association for
+  Computational Linguistics}.\hskip 1em plus 0.5em minus 0.4em\relax Florence,
+  Italy: Association for Computational Linguistics, 2019, pp. 6314--6322.
+  [Online]. Available: \url{https://www.aclweb.org/anthology/P19-1636}
+\BIBentrySTDinterwordspacing
+
+\bibitem{Wiki}
+K.~Bhatia, H.~Jain, P.~Kar, M.~Varma, and P.~Jain, ``Sparse local embeddings
+  for extreme multi-label classification,'' in \emph{Advances in neural
+  information processing systems}, 2015, pp. 730--738.
+
 \end{thebibliography}

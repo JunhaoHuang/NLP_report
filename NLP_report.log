@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99991 (TeX Live 2014/W32TeX) (preloaded format=xelatex 2022.1.21)  22 MAY 2022 13:12
+This is XeTeX, Version 3.14159265-2.6-0.99991 (TeX Live 2014/W32TeX) (preloaded format=xelatex 2022.1.21)  22 MAY 2022 14:53
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -867,7 +867,14 @@ Package: translator 2010/06/12 ver 1.10
  (c:/texlive/2014/texmf-dist/tex/latex/beamer/translator/translator-language-mappings.tex)))
 \c@MyRule=\count186
 \c@definition=\count187
- (./NLP_report.aux)
+ (./NLP_report.aux
+
+LaTeX Warning: Label `tab:addlabel' multiply defined.
+
+
+LaTeX Warning: Label `tab:addlabel' multiply defined.
+
+)
 \openout1 = `NLP_report.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 40.
@@ -957,13 +964,28 @@ Overfull \hbox (10.0pt too wide) detected at line 59
  []
 
 
-Overfull \hbox (10.0pt too wide) detected at line 92
+Underfull \hbox (badness 3343) in paragraph at lines 69--70
+[]\OT1/ptm/m/n/10 The gen-er-a-tor is a fully con-nected layer $\OML/cmm/m/it/10 G\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 e\OT1/cmr/m/n/10 ) =
+ []
+
+
+Overfull \hbox (10.0pt too wide) detected at line 101
 [][] 
  []
 
 [4]
 File: ./figures/BiLSTM.png Graphic file (type QTm)
- <use  "./figures/BiLSTM.png" >) (./contents/section4.tex) (./contents/section5.tex) (./NLP_report.bbl)
+ <use  "./figures/BiLSTM.png" >) (./contents/section4.tex
+LaTeX Font Info:    Font shape `OT1/ptm/bx/sc' in size <10> not available
+(Font)              Font shape `OT1/ptm/b/sc' tried instead on input line 1.
+Missing character: There is no ’ in font ptmr7t!
+ [5]
+File: ./figures/loss.pdf Graphic file (type QTm)
+ <use  "./figures/loss.pdf" >
+
+LaTeX Warning: Reference `NumTree' on page 6 undefined on input line 94.
+
+[6]) (./contents/section5.tex) (./NLP_report.bbl [7])
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -976,20 +998,29 @@ Before submitting the final camera ready copy, remember to:
  process uses the appropriate paper size.
 
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 70.
-[5]
+[8
+
+] [9]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 70.
  (./NLP_report.aux)
 Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 70.
 Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 70.
+
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: There were multiply-defined labels.
+
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 70.
  ) 
 Here is how much of TeX's memory you used:
- 21286 strings out of 493734
- 380823 string characters out of 6149468
- 426924 words of memory out of 5000000
- 24417 multiletter control sequences out of 15000+600000
- 38223 words of font info for 106 fonts, out of 8000000 for 9000
+ 21306 strings out of 493734
+ 381072 string characters out of 6149468
+ 431043 words of memory out of 5000000
+ 24435 multiletter control sequences out of 15000+600000
+ 39528 words of font info for 108 fonts, out of 8000000 for 9000
  1328 hyphenation exceptions out of 8191
- 34i,11n,45p,10411b,744s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 34i,11n,45p,10411b,858s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on NLP_report.pdf (5 pages).
+Output written on NLP_report.pdf (9 pages).

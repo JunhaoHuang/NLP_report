@@ -238,10 +238,8 @@ INPUT c:/texlive/2014/texmf-dist/fonts/tfm/public/cm/cmbx7.tfm
 INPUT c:/texlive/2014/texmf-dist/fonts/tfm/public/cm/cmbx5.tfm
 INPUT contents/section4.tex
 INPUT contents/section4.tex
-INPUT contents/section5.tex
-INPUT contents/section5.tex
-INPUT NLP_report.bbl
-INPUT NLP_report.bbl
+INPUT c:/texlive/2014/texmf-dist/fonts/tfm/adobe/times/ptmbc7t.tfm
+INPUT c:/texlive/2014/texmf-dist/fonts/tfm/adobe/times/ptmrc7t.tfm
 INPUT c:/texlive/2014/texmf-dist/fonts/tfm/public/cm/cmr6.tfm
 INPUT c:/texlive/2014/texmf-dist/fonts/tfm/public/cm/cmmi6.tfm
 INPUT c:/texlive/2014/texmf-dist/fonts/tfm/public/cm/cmsy6.tfm
@@ -255,4 +253,9 @@ INPUT c:/texlive/2014/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm
 INPUT c:/texlive/2014/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam7.tfm
 INPUT c:/texlive/2014/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm10.tfm
 INPUT c:/texlive/2014/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm7.tfm
+INPUT ./figures/loss.pdf
+INPUT contents/section5.tex
+INPUT contents/section5.tex
+INPUT NLP_report.bbl
+INPUT NLP_report.bbl
 INPUT NLP_report.aux
