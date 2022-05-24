@@ -19,7 +19,7 @@
 \subsection{Problem Formulation and Overview}\label{subsec:overview}
 
 
-The XMTC task is to find multiple relevant labels for each given raw text. For a training set $\{x_i,y_i\}_{i=1}^{N}$, where $x_i$ is a raw text, $y_i\in \{0,1\}^L$ is the relevant label of $x_i$ and $y_i$ is a multi-hot $L$-dimensional vectors. The goal of XMTC is to train a model that can better simulate the function $f(x_i)\in R^L$, such that $f$ output a high score for the $l$-th label $y_{il}$ if $y_{il}$ is relevant to the text $x_i$. However, one significant problem in XMTC is that $L$ can be up to millions, which makes it impossible to directly train a model on $L$-dimensional vectors due to the high workload. Therefore, in order to perform multi-label classification over tens of thousands or millions of label set, we first need to construct a probabilistic label tree (PLT) to divide massive number of labels into smaller label clusters, thus accelerating the process of label classification. After we build a PLT for label clustering, we then train an attention-aware deep learning model LightAttention by combining the BiLSTM, multi-label attention layer and generative cooperative networks for negative label sampling. The overall structure of the model is shown in \autoref{fig:structure}.
+The XMTC task is to find multiple relevant labels for each given raw text. The training set $\{x_i,y_i\}_{i=1}^{N}$, where $x_i$ is the origin source, $y_i\in \{0,1\}^L$ is the relevant label of $x_i$ and $y_i$ is a multi-hot $L$-dimensional vectors. The goal of XMTC is to train a model that can better simulate the function $f(x_i)\in R^L$, such that $f$ output a high score for the $l$-th label $y_{il}$ if $y_{il}$ is relevant to the text $x_i$. However, one significant problem in XMTC is that $L$ can be up to millions, which makes it impossible to directly train a model on $L$-dimensional vectors due to the high workload. Therefore, in order to perform multi-label classification over tens of thousands or millions of label set, we first need to construct a probabilistic label tree (PLT) to divide massive number of labels into smaller label clusters, thus accelerating the process of label classification. After we build a PLT for label clustering, we then train an attention-aware deep learning model LightAttention by combining the BiLSTM, multi-label attention layer and generative cooperative networks for negative label sampling. The whole structure of the LightAttention is listed in \autoref{fig:structure}.
 
 \subsection{Building a PLT for label clustering}
 For the PLT construction, we follow the method shown in AttentionXML \cite{you2019attentionxml}, which constructs a shallow and wide PLT from the original deep PLT presented in Parabel \cite{prabhu2018parabel}. Their PLT construction algorithm first utilizes the KMeans (K=2) algorithm to generate a hierarchical deep PLT. After that, they presents an algorithm to split down the layer of the deep PLT due to the reason that a deep PLT would result in slower performance. 
@@ -66,7 +66,7 @@ During the original AttentionXML, the candidate nodes $g(x)$ obtained by the top
 
 Specifically, the GCN for LightAttention consists of the two components: label generator, discriminator. These two components work as a cooperative networks. The label generator first generates negative labels and delivers the the negative samples into the discriminator to learn the difference between negative and positive label samples. Here, the discriminator can achieve better label representation with the help of large dynamic negative samples.
 
-The generator is a fully connected layer $G(e)=\sigma\left(W_{g} e+b_{g}\right)$ that output a $K$-dimensional vectors representing the scores of all $K$ label clusters. Top $b$ label clusters with highest scores are choosen at the generation seed of labels. Then, all these labels together with positive labels are added as the training label sets so that the deep model can be trained to recognize the postive and negative labels. The generator loss is computed as \autoref{equ:generator_loss}, during which $y_g\in {0,1}^K$ represents the multi-hot label representation of label cluster for $x$.
+\textbf{Generator.} The generator is a fully connected layer $G(e)=\sigma\left(W_{g} e+b_{g}\right)$ that output a $K$-dimensional vectors representing the scores of all $K$ label clusters. Top $b$ label clusters with highest scores are choosen at the generation seed of labels. Then, all these labels together with positive labels are added as the training label sets so that the deep model can be trained to recognize the postive and negative labels. The generator loss is computed as \autoref{equ:generator_loss}, during which $y_g\in {0,1}^K$ represents the multi-hot label representation of label cluster for $x$.
 \begin{equation}
 	\begin{aligned}
 	\mathcal{L}_{g}\left(G(e), y_{g}\right)=& \sum_{i=0}^{K}\left(1-y_{g}^{i}\right)\left(-\log \left(1-G(e)^{i}\right)\right)+\\
@@ -75,15 +75,46 @@ The generator is a fully connected layer $G(e)=\sigma\left(W_{g} e+b_{g}\right)$
 	\label{equ:generator_loss}
 \end{equation}
 
-Instead of training each level of nodes separately as AttentionXML, we treat the whole label clusters as the labels we sample. The generator needs to regenerate negative labels for the same training texts, so that the discriminator can better distinguish positive and negative labels. The label   
+Instead of training each level of nodes separately as AttentionXML, we treat the whole label clusters as the labels we sample. The generator needs to regenerate negative labels for the same training texts, so that the discriminator can better distinguish positive and negative labels. The label candidates generated by the generator in LightAttention is generated as \autoref{equ:label_candidate}:
+\begin{equation}
+	S_{g}=\left\{l_{i}: i \in\left\{i: g_{c}\left(l_{i}\right) \in G(e)\right\}\right\}
+	\label{equ:label_candidate}
+\end{equation}
+\noindent where $g_c$ helps to map labels to its clusters and $l_i$ denotes the $i$-th label. During the training phrase, all positive labels are added to $S_g$ as the whole label clusters.
 
+\textbf{Discriminator.} After we obtain the label candidates $S_g$ containing both positive and negative labels, we have to convert the label candidates into label embedding $M$ for each label in $S_g$. This is denoted as \autoref{equ:label_embedding}. 
+\begin{equation}
+	M=\left[E_{i}: i \in\left\{i: S_{g}\right\}\right]
+	\label{equ:label_embedding}
+\end{equation}
+\noindent where $E_i \in R^b$ is the modifiable $b$ dimension embedding of $i$-th label and $E \in R^{L\times b}$ is the embedding matrix storing all label embedding. This matrix is initialized randomly and will be updated repeatedly during the training procedure. 
 
+\begin{equation}
+	D(e, M)=\sigma\left(M \sigma\left(W_{h} e+b_{h}\right)\right)
+	\label{equ:discriminator}
+\end{equation}
+
+The discriminator, as shown in \autoref{equ:discriminator}, is deployed into a hidden bottleneck layer in the deep model. During \autoref{equ:discriminator}, $W_h \in R^{b\times 5k}$ and $b_h \in R^b$ are the weight of the hidden bottleneck layer. The goal of the discriminator $D(e, M )$ is to detect the difference between positive and negative labels generated by the generator. The training target of $D(e, M )$ is $y_d$ where $y_d^i = 0$ if $S_g^i$ is a positive label and $y_d^i = 1$ if $S_g^i$ is a negative label. Therefore, the loss for discriminator phrase can be computed as \autoref{equ:disc_loss}.
+\begin{equation}
+	\begin{aligned}
+		\mathcal{L}_{d}\left(D(e, M), y_{d}\right)=& \sum_{i=0}^{K}\left(1-y_{d}^{i}\right)\left(-\log \left(1-D(e, M)^{i}\right)\right)+\\
+		& y_{d}^{i}\left(-\log \left(D(e, M)^{i}\right)\right)
+		\end{aligned}
+	\label{equ:disc_loss}
+\end{equation}
+\noindent The total loss function of the whole training model is the combination of the generator and discriminator, as shown in \autoref{equ:total_loss}. 
+\begin{equation}
+	\mathcal{L}=\mathcal{L}_{g}+\mathcal{L}_{d}
+	\label{equ:total_loss}
+\end{equation}
+
+The whole procedures of generative cooperative netowrks are shown in \autoref{alg:gcn}. 
 \begin{algorithm}[thb]
-    \caption{GCN for LightAttention\label{alg:gcn}}
+    \caption{Dynamic negative labels generator for LightAttention\label{alg:gcn}}
     \begin{algorithmic}[1]
         \REQUIRE{Labels of training texts \(\{X,Y\}=\{(x_i,y_i)\}_{i=1}^{N}\), semantic features of the training text $\hat{X}$}
         \ENSURE{Label embedding $M$}
-        \STATE{Label clusters $C$ using $\hat{X}, Y$}
+        \STATE{Label clusters $C$ generation using $\hat{X}, Y$}
 		\STATE{Discriminator $D$ initialization over cluster $C$}
 		\STATE{Label embedding $E$, generator $G$ initialization over cluster $C$}
 		\STATE{Get $m$ samples from {$X,Y$}: {$X_{batch},Y_{batch}$}}
@@ -103,8 +134,9 @@ Instead of training each level of nodes separately as AttentionXML, we treat the
     \end{algorithmic}
 \end{algorithm}
 
+
 \subsection{Attention-Aware deep model}\label{subsec:attention_deep_model}
-As shown in \autoref{fig:structure},the deep model of LightAttention can be briefly divided into fix layers: text representation layer, BiLSTM layer, generative cooperative networks, multi-label attention layer, fully connected layer and output layer.
+As shown in \autoref{fig:structure},the deep model of LightAttention can be briefly divided into six layers: text representation section, BiLSTM section, multi attention setction, fully connected layer, hidden bottleneck layer, and output layer.
 
 \subsubsection{Text representation layer} The input text of our model is raw text with length $\hat{T}$. The famous 300-dimensional GloVe \cite{pennington2014glove} word embedding representation is used in our model.
 
@@ -121,7 +153,7 @@ As shown in \autoref{fig:structure},the deep model of LightAttention can be brie
 % \subsubsection{Generative cooperative networks} 
 
 \subsubsection{Multi-label attention}
-Attention mechanism \cite{niu2021review} is to permit the decoder to utilize the most relevant parts of the input sequence in a flexible manner, by a weighted combination of all of the encoded input vectors, with the most relevant vectors being attributed the highest weights. In XMTC, the most relevant context that each label captures would be totally different. We adopts the multi-label attention shown in AttentionXML, which detect the intensive parts of text for multiple labels by computing:
+Attention mechanism \cite{niu2021review} assigns the most  highest weights by a weighted combination of all encoded input vectors. In XMTC, the most relevant context that each label captures would be totally different. We adopts the multi-label attention shown in AttentionXML, which detect the intensive parts of text for multiple labels by computing:
 \begin{equation}
 	\hat{\mathbf{m}}_{j}=\sum_{i=1}^{\hat{T}} \alpha_{i j} \hat{\mathbf{h}}_{i}, \quad \alpha_{i j}=\frac{e^{\hat{\mathbf{h}}_{i} \hat{\mathbf{w}}_{j}}}{\sum_{t=1}^{\hat{T}} e^{\hat{\mathbf{h}}_{t} \hat{\mathbf{w}}_{j}}}
 	\label{equ:mlattention}
@@ -129,7 +161,9 @@ Attention mechanism \cite{niu2021review} is to permit the decoder to utilize the
 \noindent where $\hat{m_j}\in R^{2\hat{N}}$ is the output of multi-label attention, $\alpha_{ij}$ is the normalized coefficient of $\hat{h_i}$ and $\hat{w_j}\in R^{2\hat{N}}$ is the attention parameters.
 
 \subsubsection{Fully connected layer and output layer}
-LightAttention is equipped with 3 or 4 layers of fully connected layers and an output layer. 
+LightAttention contains two fully connected layers and one output layer. 
 
+\subsubsection{Hidden bottleneck layer}
+We conduct the hidden bottleneck layer between the fully connected layer and output layer as in \cite{liu2017deep}. The hidden bottleneck layer also enables the generator and discriminator to concentrate variance  of text representations. The generator and the discriminator focuses on fine-grained textual information coarse-grained textual information respectively.
 
-
+% \subsection{Loss }
