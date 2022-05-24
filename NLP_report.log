@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021/W32TeX) (preloaded format=xelatex 2021.10.26)  24 MAY 2022 08:51
+This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021/W32TeX) (preloaded format=xelatex 2021.10.26)  24 MAY 2022 08:52
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -448,6 +448,9 @@ Package: array 2020/10/01 v2.5c Tabular extension package (FMi)
 \TX@delta=\dimen199
 \TX@cols=\count301
 \TX@ftn=\toks25
+) (c:/texlive/2021/texmf-dist/tex/latex/threeparttable/threeparttable.sty
+Package: threeparttable 2003/06/13  v 3.0
+\@tempboxb=\box110
 ) (c:/texlive/2021/texmf-dist/tex/latex/footmisc/footmisc.sty
 Package: footmisc 2011/06/06 v5.5b a miscellany of footnote facilities
 \FN@temptoken=\toks26
@@ -488,7 +491,7 @@ File: l3backend-xetex.def 2021-03-18 L3 backend support: XeTeX
 \l__color_backend_stack_int=\count304
 \g__color_backend_stack_int=\count305
 \g__graphics_track_int=\count306
-\l__pdf_internal_box=\box110
+\l__pdf_internal_box=\box111
 \g__pdf_backend_object_int=\count307
 \g__pdf_backend_annotation_int=\count308
 \g__pdf_backend_link_int=\count309
@@ -497,7 +500,7 @@ Package: siunitx 2020/02/25 v2.8b A comprehensive (SI) units package
  (c:/texlive/2021/texmf-dist/tex/latex/l3packages/l3keys2e/l3keys2e.sty
 Package: l3keys2e 2021-03-12 LaTeX2e option processing using LaTeX3 keys
 )
-\l__siunitx_tmp_box=\box111
+\l__siunitx_tmp_box=\box112
 \l__siunitx_tmp_dim=\dimen257
 \l__siunitx_tmp_int=\count310
 \l__siunitx_number_mantissa_length_int=\count311
@@ -509,8 +512,8 @@ Package: l3keys2e 2021-03-12 LaTeX2e option processing using LaTeX3 keys
 \l__siunitx_process_integer_min_int=\count317
 \l__siunitx_process_precision_int=\count318
 \l__siunitx_group_min_int=\count319
-\l__siunitx_angle_marker_box=\box112
-\l__siunitx_angle_unit_box=\box113
+\l__siunitx_angle_marker_box=\box113
+\l__siunitx_angle_unit_box=\box114
 \l__siunitx_angle_marker_dim=\dimen258
 \l__siunitx_angle_unit_dim=\dimen259
 \l__siunitx_unit_int=\count320
@@ -531,10 +534,10 @@ Package: l3keys2e 2021-03-12 LaTeX2e option processing using LaTeX3 keys
 \l__siunitx_table_fill_pre_dim=\dimen266
 \l__siunitx_table_fill_post_dim=\dimen267
 \l__siunitx_table_fill_mid_dim=\dimen268
-\l__siunitx_table_pre_box=\box114
-\l__siunitx_table_post_box=\box115
-\l__siunitx_table_mantissa_box=\box116
-\l__siunitx_table_result_box=\box117
+\l__siunitx_table_pre_box=\box115
+\l__siunitx_table_post_box=\box116
+\l__siunitx_table_mantissa_box=\box117
+\l__siunitx_table_result_box=\box118
 \l__siunitx_table_number_align_skip=\skip86
 \l__siunitx_table_text_align_skip=\skip87
  (c:/texlive/2021/texmf-dist/tex/latex/translator/translator.sty
@@ -555,7 +558,7 @@ Package: adjcalc 2012/05/16 v1.1 Provides advanced setlength with multiple back-
 Package: trimclip 2020/08/19 v1.2 Trim and clip general TeX material
  (c:/texlive/2021/texmf-dist/tex/latex/collectbox/collectbox.sty
 Package: collectbox 2012/05/17 v0.4b Collect macro arguments as boxes
-\collectedbox=\box118
+\collectedbox=\box119
 )
 \tc@llx=\dimen269
 \tc@lly=\dimen270
@@ -575,7 +578,7 @@ File: tc-xetex.def 2019/01/04 v2.2 Clipping driver for xetex
 \adjbox@ptotalheight=\dimen280
  (c:/texlive/2021/texmf-dist/tex/latex/varwidth/varwidth.sty
 Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
-\@vwid@box=\box119
+\@vwid@box=\box120
 \sift@deathcycles=\count328
 \@vwid@loff=\dimen281
 \@vwid@roff=\dimen282
@@ -742,108 +745,10 @@ LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
 LaTeX Font Warning: Font shape `TU/ptm/m/sc' undefined
 (Font)              using `TU/ptm/m/n' instead on input line 1.
 
-
-LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
-(Font)              using `TU/ptm/bx/n' instead on input line 3.
-
-
-LaTeX Warning: Citation `Artificial' on page 1 undefined on input line 3.
-
-
-LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
-(Font)              using `TU/ptm/bx/n' instead on input line 3.
-
-
-LaTeX Warning: Citation `Traditional' on page 1 undefined on input line 3.
-
-
-LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
-(Font)              using `TU/ptm/bx/n' instead on input line 3.
-
-
-LaTeX Warning: Citation `deepp' on page 1 undefined on input line 3.
-
-
-LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
-(Font)              using `TU/ptm/bx/n' instead on input line 3.
-
-
-LaTeX Warning: Citation `large' on page 1 undefined on input line 3.
-
-
-LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
-(Font)              using `TU/ptm/bx/n' instead on input line 3.
-
-
-LaTeX Warning: Citation `Tabobao' on page 1 undefined on input line 3.
-
-
-LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
-(Font)              using `TU/ptm/bx/n' instead on input line 3.
-
-
-LaTeX Warning: Citation `Nass' on page 1 undefined on input line 3.
-
-
-LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
-(Font)              using `TU/ptm/bx/n' instead on input line 3.
-
-
-LaTeX Warning: Citation `0recommendation' on page 1 undefined on input line 3.
-
-
-LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
-(Font)              using `TU/ptm/bx/n' instead on input line 3.
-
-
-LaTeX Warning: Citation `machine' on page 1 undefined on input line 3.
-
-
-LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
-(Font)              using `TU/ptm/bx/n' instead on input line 3.
-
-
-LaTeX Warning: Citation `data' on page 1 undefined on input line 3.
-
-
-LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
-(Font)              using `TU/ptm/bx/n' instead on input line 7.
-
-
-LaTeX Warning: Citation `domain' on page 1 undefined on input line 7.
-
-
-LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
-(Font)              using `TU/ptm/bx/n' instead on input line 7.
-
-
-LaTeX Warning: Citation `raw' on page 1 undefined on input line 7.
-
-
-LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
-(Font)              using `TU/ptm/bx/n' instead on input line 9.
-
-
-LaTeX Warning: Citation `forced' on page 1 undefined on input line 9.
-
-
-LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
-(Font)              using `TU/ptm/bx/n' instead on input line 9.
-
-
-LaTeX Warning: Citation `deeptree' on page 1 undefined on input line 9.
-
 [1
 
 
 ]
-
-LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
-(Font)              using `TU/ptm/bx/n' instead on input line 11.
-
-
-LaTeX Warning: Citation `improving' on page 2 undefined on input line 11.
-
 
 LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
 (Font)              using `TU/ptm/bx/n' instead on input line 11.
@@ -856,16 +761,12 @@ LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
 (Font)              using `TU/ptm/bx/n' instead on input line 11.
 
 
-LaTeX Warning: Citation `mulity' on page 2 undefined on input line 11.
-
-
-LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
-(Font)              using `TU/ptm/bx/n' instead on input line 11.
-
-
 LaTeX Warning: Citation `NEURIPS2019_9e6a921f' on page 2 undefined on input line 11.
 
-) (./contents/section2.tex [2]) (./contents/section3.tex
+) (./contents/section2.tex
+Underfull \vbox (badness 2951) has occurred while \output is active []
+
+ [2]) (./contents/section3.tex
 File: ./figures//structure.png Graphic file (type bmp)
 <./figures//structure.png>
 File: ./figures//tree.png Graphic file (type bmp)
@@ -965,9 +866,6 @@ Overfull \hbox (10.0pt too wide) detected at line 59
  []
 
 [3]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
 
 LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
 (Font)              using `TU/ptm/bx/n' instead on input line 69.
@@ -1039,7 +937,10 @@ Overfull \hbox (10.0pt too wide) detected at line 135
 
 File: ./figures//BiLSTM.png Graphic file (type bmp)
 <./figures//BiLSTM.png>
-[5]) (./contents/section4.tex
+
+Underfull \vbox (badness 1052) has occurred while \output is active []
+
+ [5]) (./contents/section4.tex
 
 LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
 (Font)              using `TU/ptm/bx/n' instead on input line 27.
@@ -1117,26 +1018,15 @@ LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
 LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
 (Font)              using `TU/ptm/bx/n' instead on input line 60.
 
-[6] [7]
+[6]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [7]
 
 LaTeX Font Warning: Font shape `TU/ptm/b/it' undefined
 (Font)              using `TU/ptm/bx/it' instead on input line 98.
 
-
-LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
-(Font)              using `TU/ptm/bx/n' instead on input line 110.
-
-
-LaTeX Warning: Citation `AttentionXML' on page 8 undefined on input line 110.
-
-
-LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
-(Font)              using `TU/ptm/bx/n' instead on input line 110.
-
-
-LaTeX Warning: Citation `LightXML' on page 8 undefined on input line 110.
-
-) (./contents/section5.tex) [8] (./NLP_report.bbl [9])
+[8]) (./contents/section5.tex) (./NLP_report.bbl [9])
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -1148,9 +1038,7 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[10
-
-] (./NLP_report.aux)
+[10] (./NLP_report.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
@@ -1161,12 +1049,12 @@ Package rerunfilecheck Info: File `NLP_report.out' has not changed.
 (rerunfilecheck)             Checksum: 9EB312B9B8498C672ED38B3DE6713E7E;3729.
  ) 
 Here is how much of TeX's memory you used:
- 16063 strings out of 476919
- 278380 string characters out of 5825423
- 605511 words of memory out of 5000000
- 35779 multiletter control sequences out of 15000+600000
+ 16121 strings out of 476919
+ 279324 string characters out of 5825423
+ 607134 words of memory out of 5000000
+ 35833 multiletter control sequences out of 15000+600000
  415878 words of font info for 88 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 71i,12n,77p,1758b,866s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 71i,12n,77p,1752b,866s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on NLP_report.xdv (10 pages, 420304 bytes).
+Output written on NLP_report.xdv (10 pages, 463172 bytes).

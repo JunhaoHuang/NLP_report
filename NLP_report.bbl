@@ -25,6 +25,26 @@
 K.~Chowdhary, ``Natural language processing,'' \emph{Fundamentals of artificial
   intelligence}, pp. 603--649, 2020.
 
+\bibitem{Artificial}
+P.~H. Winston, \emph{Artificial intelligence}.\hskip 1em plus 0.5em minus
+  0.4em\relax Addison-Wesley Longman Publishing Co., Inc., 1992.
+
+\bibitem{Traditional}
+C.~Manning and H.~Schutze, \emph{Foundations of statistical natural language
+  processing}.\hskip 1em plus 0.5em minus 0.4em\relax MIT press, 1999.
+
+\bibitem{deepp}
+A.~Torfi, R.~A. Shirvani, Y.~Keneshloo, N.~Tavaf, and E.~A. Fox, ``Natural
+  language processing advancements by deep learning: A survey,'' \emph{arXiv
+  preprint arXiv:2003.01200}, 2020.
+
+\bibitem{large}
+J.~Nam, J.~Kim, E.~Loza~Menc{\'\i}a, I.~Gurevych, and J.~F{\"u}rnkranz,
+  ``Large-scale multi-label text classification—revisiting neural networks,''
+  in \emph{Joint european conference on machine learning and knowledge
+  discovery in databases}.\hskip 1em plus 0.5em minus 0.4em\relax Springer,
+  2014, pp. 437--452.
+
 \bibitem{liu2017deep}
 J.~Liu, W.-C. Chang, Y.~Wu, and Y.~Yang, ``Deep learning for extreme
   multi-label text classification,'' in \emph{Proceedings of the 40th
@@ -37,14 +57,54 @@ R.~You, Z.~Zhang, Z.~Wang, S.~Dai, H.~Mamitsuka, and S.~Zhu, ``Attentionxml:
   multi-label text classification,'' \emph{Advances in Neural Information
   Processing Systems}, vol.~32, 2019.
 
+\bibitem{Tabobao}
+I.~H. Bernstein and G.~Teng, ``Factoring items and factoring scales are
+  different: spurious evidence for multidimensionality due to item
+  categorization.'' \emph{Psychological bulletin}, vol. 105, no.~3, p. 467,
+  1989.
+
+\bibitem{Nass}
+A.~L. Garrido, O.~Gomez, S.~Ilarri, and E.~Mena, ``Nass: news annotation
+  semantic system,'' in \emph{2011 IEEE 23rd International Conference on Tools
+  with Artificial Intelligence}.\hskip 1em plus 0.5em minus 0.4em\relax IEEE,
+  2011, pp. 904--905.
+
+\bibitem{0recommendation}
+A.~Da’u and N.~Salim, ``Recommendation system based on deep learning methods:
+  a systematic review and new directions,'' \emph{Artificial Intelligence
+  Review}, vol.~53, no.~4, pp. 2709--2748, 2020.
+
+\bibitem{machine}
+J.~Salminen, V.~Yoganathan, J.~Corporan, B.~J. Jansen, and S.-G. Jung,
+  ``Machine learning approach to auto-tagging online content for content
+  marketing efficiency: A comparative analysis between methods and content
+  type,'' \emph{Journal of Business Research}, vol. 101, pp. 203--217, 2019.
+
+\bibitem{data}
+D.~Ghadiyaram, D.~Tran, and D.~Mahajan, ``Large-scale weakly-supervised
+  pre-training for video action recognition,'' in \emph{Proceedings of the
+  IEEE/CVF conference on computer vision and pattern recognition}, 2019, pp.
+  12\,046--12\,055.
+
 \bibitem{grandini2020metrics}
 M.~Grandini, E.~Bagli, and G.~Visani, ``Metrics for multi-class classification:
   an overview,'' \emph{arXiv preprint arXiv:2008.05756}, 2020.
+
+\bibitem{domain}
+Q.~Dou, D.~Coelho~de Castro, K.~Kamnitsas, and B.~Glocker, ``Domain
+  generalization via model-agnostic learning of semantic features,''
+  \emph{Advances in Neural Information Processing Systems}, vol.~32, 2019.
 
 \bibitem{zhang2010understanding}
 Y.~Zhang, R.~Jin, and Z.-H. Zhou, ``Understanding bag-of-words model: a
   statistical framework,'' \emph{International Journal of Machine Learning and
   Cybernetics}, vol.~1, no.~1, pp. 43--52, 2010.
+
+\bibitem{raw}
+T.~Boro{\c{s}}, {\c{S}}.~D. Dumitrescu, and R.~Burtica, ``Nlp-cube: End-to-end
+  raw text processing with neural networks,'' in \emph{Proceedings of the CoNLL
+  2018 Shared Task: Multilingual Parsing from Raw Text to Universal
+  Dependencies}, 2018, pp. 171--179.
 
 \bibitem{prabhu2018parabel}
 Y.~Prabhu, A.~Kag, S.~Harsola, R.~Agrawal, and M.~Varma, ``Parabel: Partitioned
@@ -66,6 +126,27 @@ H.~Yu, K.~Zhong, and I.~S. Dhillon, ``{PECOS:} prediction for enormous and
   correlated output spaces,'' \emph{CoRR}, vol. abs/2010.05878, 2020. [Online].
   Available: \url{https://arxiv.org/abs/2010.05878}
 \BIBentrySTDinterwordspacing
+
+\bibitem{forced}
+X.~Wang, Y.~Xu, X.~He, Y.~Cao, M.~Wang, and T.-S. Chua, ``Reinforced negative
+  sampling over knowledge graph for recommendation,'' in \emph{Proceedings of
+  The Web Conference 2020}, 2020, pp. 99--109.
+
+\bibitem{deeptree}
+D.~W. Otter, J.~R. Medina, and J.~K. Kalita, ``A survey of the usages of deep
+  learning for natural language processing,'' \emph{IEEE transactions on neural
+  networks and learning systems}, vol.~32, no.~2, pp. 604--624, 2020.
+
+\bibitem{improving}
+T.~Chen, R.~Xu, Y.~He, and X.~Wang, ``Improving sentiment analysis via sentence
+  type classification using bilstm-crf and cnn,'' \emph{Expert Systems with
+  Applications}, vol.~72, pp. 221--230, 2017.
+
+\bibitem{mulity}
+T.~Baumel, J.~Nassour-Kassis, R.~Cohen, M.~Elhadad, and N.~Elhadad,
+  ``Multi-label classification of patient notes: case study on icd code
+  assignment,'' in \emph{Workshops at the thirty-second AAAI conference on
+  artificial intelligence}, 2018.
 
 \bibitem{Wiki}
 K.~Bhatia, H.~Jain, P.~Kar, M.~Varma, and P.~Jain, ``Sparse local embeddings
@@ -156,6 +237,26 @@ I.~Chalkidis, M.~Fergadiotis, P.~Malakasiotis, and I.~Androutsopoulos,
   Computational Linguistics}.\hskip 1em plus 0.5em minus 0.4em\relax Florence,
   Italy: Association for Computational Linguistics, 2019, pp. 6314--6322.
   [Online]. Available: \url{https://www.aclweb.org/anthology/P19-1636}
+\BIBentrySTDinterwordspacing
+
+\bibitem{AttentionXML}
+\BIBentryALTinterwordspacing
+R.~You, Z.~Zhang, Z.~Wang, S.~Dai, H.~Mamitsuka, and S.~Zhu, ``Attentionxml:
+  Label tree-based attention-aware deep model for high-performance extreme
+  multi-label text classification,'' in \emph{Advances in Neural Information
+  Processing Systems}, H.~Wallach, H.~Larochelle, A.~Beygelzimer,
+  F.~d\textquotesingle Alch\'{e}-Buc, E.~Fox, and R.~Garnett, Eds.,
+  vol.~32.\hskip 1em plus 0.5em minus 0.4em\relax Curran Associates, Inc.,
+  2019. [Online]. Available:
+  \url{https://proceedings.neurips.cc/paper/2019/file/9e6a921fbc428b5638b3986e365d4f21-Paper.pdf}
+\BIBentrySTDinterwordspacing
+
+\bibitem{LightXML}
+\BIBentryALTinterwordspacing
+T.~Jiang, D.~Wang, L.~Sun, H.~Yang, Z.~Zhao, and F.~Zhuang, ``Lightxml:
+  Transformer with dynamic negative sampling for high-performance extreme
+  multi-label text classification,'' \emph{CoRR}, vol. abs/2101.03305, 2021.
+  [Online]. Available: \url{https://arxiv.org/abs/2101.03305}
 \BIBentrySTDinterwordspacing
 
 \end{thebibliography}
